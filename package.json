@@ -1,0 +1,43 @@
+{
+  "name": "employee-management-nestjs-graphql",
+  "version": "1.0.0",
+  "description": "dummy",
+  "main": "index.js",
+  "repository": "https://github.com/Rajesh-Royal/Employee-Management-Dashboard.git",
+  "author": "<rajeshroyal896@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "install:client": "cd client && yarn install --production=false",
+    "build:client": "cd client && yarn build",
+    "build:server": "cd server && yarn build",
+    "install:server": "cd server && yarn install --production=false",
+    "install:server:client": "concurrently \"yarn install --production=false\" \"yarn install:client\"  \"yarn install:server\"",
+    "start:client": "cd client && yarn start:dev",
+    "start:server": "cd server && yarn start:dev",
+    "start:all": "concurrently \"yarn start:client\" \"yarn start:server\"",
+    "prepare": "husky install",
+    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development yarn install:server --only=dev --dev",
+    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;"
+  },
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "devDependencies": {
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
+      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
+      "post-applypatch": "echo \"[Husky] post-applypatch\"",
+      "pre-commit": "echo \"[Husky] pre-commit runs\""
+    }
+  },
+  "lint-staged": {
+    "./client/src/**/*.{js,jsx,ts,tsx,json,scss,md}": [
+      "eslint --fix"
+    ]
+  }
+}
